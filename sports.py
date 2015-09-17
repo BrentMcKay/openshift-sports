@@ -29,6 +29,9 @@ def scores():
     scoresrc=urllib.urlopen(url)
     scoretext=scoresrc.read()
         
+    # truncate score text after string "teamsOnBye"
+    scoretext = scoretext.split('teamsOnBye', 1)[0]
+
     # Get team names
     teamre = re.compile('"shortDisplayName":"(\w+)"')
     teamiter = teamre.finditer(scoretext)
