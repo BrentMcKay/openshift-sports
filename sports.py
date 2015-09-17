@@ -2,6 +2,7 @@ import urllib
 import re
 
 from flask import Flask
+from flask import request
 
 app = Flask(__name__)
 
@@ -15,8 +16,6 @@ def main():
 @app.route("/scores")
 def scores():
     outstr = ''
-
-    assert app.debug == True, "intentional debug"
 
     # parse args for week and year
     year = request.args.get('year','2015', type=str)
@@ -64,5 +63,5 @@ def scores():
 
 
 if __name__ == "__main__":
-    app.debug = True
-    app.run( debug = True)
+    #app.debug = True
+    app.run( )
