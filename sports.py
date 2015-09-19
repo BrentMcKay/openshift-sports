@@ -1,3 +1,4 @@
+import os,sys
 from html import HTML
 from BeautifulSoup import BeautifulSoup
 
@@ -44,7 +45,7 @@ def scores():
 
     # Open ESPN scores page for year and week
     url='http://espn.go.com/nfl/scoreboard/_/year/' + year + '/seasontype/2/week/' + week
-    print (url) 
+    #print (url) 
     scoresrc=urllib.urlopen(url)
     scoretext=scoresrc.read()
         
@@ -117,7 +118,7 @@ def poolnfl():
 
     # Open ESPN standings page
     url='http://espn.go.com/nfl/standings/_/season/' + year 
-    print (url) 
+    #print (url) 
     standingstext=urllib.urlopen(url)
     standings = BeautifulSoup(standingstext)
 
@@ -307,7 +308,7 @@ def poolmlb():
 
     # Open ESPN standings page
     url='http://espn.go.com/mlb/standings/_/season/' + year 
-    print (url) 
+    #print (url) 
     standingstext=urllib.urlopen(url)
     standings = BeautifulSoup(standingstext)
 
@@ -324,28 +325,28 @@ def poolmlb():
             if ( len(spans) == 3 or len(spans) == 4 ):
                 abbr = spans[len(spans)-2].findAll('abbr')
                 teamname = abbr[0].string
-                print teamname
+                #print teamname
                 # W L HG RS RA
                 teams[teamname] = [0,0,0,0,0]
                 count = 0
             else:
                 # The 2 <td> entries after the <td> with the team name are W and L
                 if ( count < 2 ):
-                    print td.string
+                    #print td.string
                     teams[teamname][count] = int(td.string)
                 # 5th td is home w-l record
                 elif ( count == 5 ):
-                    print td.string
+                    #print td.string
                     hg = td.string.split("-")
                     teams[teamname][2] = int(hg[0]) + int(hg[1])
-                    print teams[teamname][2]
+                    #print teams[teamname][2]
                 # 6th td is RS
                 elif ( count == 6 ):
-                    print td.string
+                    #print td.string
                     teams[teamname][3] = int(td.string)
                 # 7th td is RS
                 elif ( count == 7 ):
-                    print td.string
+                    #print td.string
                     teams[teamname][4] = int(td.string)
 
                 count = count + 1
@@ -516,4 +517,5 @@ def poolmlb():
 #################################################
 if __name__ == "__main__":
     app.debug = True
+
     app.run( )
