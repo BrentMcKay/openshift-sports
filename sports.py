@@ -102,7 +102,8 @@ def poolnfl():
     filename = "nfl."+league+".teams."+year
     #ownertext = open("nfl.family.teams.2015").read()
     try:
-        ownertext = open(filename).read()
+        #ownertext = open(filename).read()
+        ownertext = open(os.path.join(os.path.dirname(__file__),filename),'r').read()
     except IOError:
         return filename + " not found"
 
@@ -292,7 +293,8 @@ def poolmlb():
     # Open file containing owners and teams
     filename = "mlb.teams."+year
     try:
-        ownertext = open(filename).read()
+        #ownertext = open(filename).read()
+        ownertext = open(os.path.join(os.path.dirname(__file__),filename),'r').read()
     except IOError:
         return filename + " not found"
 
