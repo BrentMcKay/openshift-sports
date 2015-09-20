@@ -14,7 +14,8 @@ mlbNames = {
 'LAD':'Los Angeles Dodgers','BOS':'Boston Red Sox','CHC':'Chicago Cubs','TB':'Tampa Bay Rays','MIL':'Milwaukee Brewers','MIN':'Minnesota Twins',
 'STL':'St. Louis Cardinals','LAA':'Los Angeles Angels','CLE':'Cleveland Indians','NYY':'New York Yankees','KC':'Kansas City Royals','TEX':'Texas Rangers',
 'SEA':'Seattle Mariners','DET':'Detroit Tigers','BAL':'Baltimore Orioles','OAK':'Oakland Athletics','HOU':'Houston Astros','COL':'Colorado Rockies',
-'PIT':'Pittsburgh Pirates','SD':'San Diego Padres','TOR':'Toronto Blue Jays','NYM':'New York Mets','ARI':'Arizona Diamondbacks','ATL':'Atlanta Braves'
+'PIT':'Pittsburgh Pirates','SD':'San Diego Padres','TOR':'Toronto Blue Jays','NYM':'New York Mets','ARI':'Arizona Diamondbacks','ATL':'Atlanta Braves',
+'FLA':'Florida Marlins'
 }
 
 nflNames = {
@@ -511,6 +512,6 @@ def poolmlb():
 
 #################################################
 if __name__ == "__main__":
-    app.debug = True
+    app.debug = False
 
     app.run( )
