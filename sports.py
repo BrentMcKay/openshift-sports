@@ -421,19 +421,12 @@ def poolmlb():
                 ownerRS[ownerName] += teams[team][3]
                 ownerRA[ownerName] += teams[team][4]
 
-
-    #for owner in ownerTeams.keys():
-        #print owner, ownerCost[owner], ownerW[owner], ownerL[owner], ownerT[owner]
-        #for teamname in ownerTeams[owner]:
-            #print teamname, teams[teamname][3], teams[teamname][0], teams[teamname][1], teams[team
-
-
     # Create HTML object
     h = HTML()
 
     # Add HTML header info
     #output = 'Content-type: text/html\n\n'
-    outstr += '<HTML>\n<HEAD>\n<TITLE>' + year + ' NFL Standings</TITLE>\n<link rel="stylesheet"'
+    outstr += '<HTML>\n<HEAD>\n<TITLE>' + year + ' MLB Standings</TITLE>\n<link rel="stylesheet"'
     outstr += ' type="text/css"'
     outstr += ' href="' + url_for('static', filename = 'standings.css') + '"'
     #outstr += ' href="static/standings.css"'
@@ -442,7 +435,7 @@ def poolmlb():
 
     # Create main HTML table
 
-    t = h.table( caption = str(year) + ' NFL pool standings')
+    t = h.table( caption = str(year) + ' MLB pool standings')
 
     # Add table header
     t.th('Owner/Team')
