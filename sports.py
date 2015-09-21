@@ -338,16 +338,16 @@ def poolmlb():
                     #print td.string
                     teams[teamname][count] = int(td.string)
                 # 5th td is home w-l record
-                elif ( count == 5 ):
+                elif ( count == 4 ):
                     #print td.string
                     hg = td.string.split("-")
                     teams[teamname][2] = int(hg[0]) + int(hg[1])
                     #print teams[teamname][2]
-                # 6th td is RS
+                # 7th td is RS
                 elif ( count == 6 ):
                     #print td.string
                     teams[teamname][3] = int(td.string)
-                # 7th td is RS
+                # 8th td is RS
                 elif ( count == 7 ):
                     #print td.string
                     teams[teamname][4] = int(td.string)
