@@ -458,7 +458,7 @@ def poolmlb():
         rs = ownerRS[owner]
         ra = ownerRA[owner]
         if ( rs + ra > 0 ):
-            epct = (rs**2.0)/(rs**2.0 + ra**2.0)
+            epct = (rs**1.81)/(rs**1.81 + ra**1.81)
         else:
             epct = 0.0
         ew = int(epct * (w + l))
