@@ -25,6 +25,14 @@ nflNames = {
 'DEN':'Denver Broncos','NE':'New England Patriots','NO':'New Orleans Saints','BUF':'Buffalo Bills','STL':'St. Louis Rams','DET':'Detroit Lions','CLE':'Cleveland Browns','OAK':'Oakland Raiders'
 }
 
+nbaNames = {
+'MIA':'Miami Heat','MEM':'Memphis Grizzlies','BKN':'Brooklyn Nets','POR':'Portland Trailblazers','GST':'Golden State Warriors','ORL':'Orlando Magic',
+'OKC':'Oklahoma City Thunder','BOS':'Boston Celtics','PHI':'Philadelphia 76ers','MIL':'Milwaukee Bucks','PHX':'Phoenix Suns','CHA':'Charlotte Hornets',
+'DEN':'Denver Nuggets','ATL':'Atlanta Hawks','MIN':'Minnesota Timberwolves','DAL':'Dallas Mavericks','TOR':'Toronto Raptors','WAS':'Washington Wizards',
+'SA':'San Antonio Spurs','IND':'Indiana Pacers','UT':'Utah Jazz','HOU':'Houston Rockets','CLE':'Cleveland Cavaliers','SAC':'Sacramento Kings',
+'LAL':'Los Angeles Lakers','LAC':'Los Angeles Clippers','NY':'New York Knicks','CHI':'Chicago Bulls','NO':'New Orleans Hornets','DET':'Detroit Pistons'
+}
+
 #################################################
 @app.route('/')
 #def hello_world():
@@ -499,6 +507,186 @@ def poolmlb():
             trow.td(str(ew), align = 'right')
             trow.td(str(el), align = 'right')
             trow.td(str(ehgr), align = 'right')
+
+    # Add html table to the output string
+    outstr += str(t)
+
+    # Add html closing
+    outstr += '</BODY></HTML>\n'
+
+    return outstr
+
+
+#################################################
+@app.route("/pool/nba")
+def poolnba():
+
+    teams = {}
+    count = 99
+
+    outstr = ""
+
+    # parse args for year
+    year = request.args.get('year','2016', type=str)
+
+    # Open file containing owners and teams
+    filename = "nba.teams."+year
+    try:
+        #ownertext = open(filename).read()
+        ownertext = open(os.path.join(os.path.dirname(__file__),filename),'r').read()
+    except IOError:
+        return filename + " not found"
+
+    # If there are dashes in owner file, it's an auction league
+    if ( ownertext.find('-') == -1 ):
+        auction = False
+    else:
+        auction = True
+
+    # split into lines
+    lines = ownertext.split("\n")
+    betPerGame = float(lines.pop(0))
+
+    # Open ESPN standings page
+    url='http://espn.go.com/nba/standings/_/season/' + year 
+    #print (url) 
+    standingstext=urllib.urlopen(url)
+    standings = BeautifulSoup(standingstext)
+
+    # get all the <tr> entries
+    for row in standings.findAll('tr'):
+
+        # get all the <td> entries in current row
+        for td in row.findAll('td'):
+
+            # get all the <span> entries in this td
+            spans = td.findAll('span')
+
+            # If there are 3 or 4 spans, this is a team name.  If 4, there is a playoff key before the name
+            if ( len(spans) == 3 or len(spans) == 4 ):
+                abbr = spans[len(spans)-2].findAll('abbr')
+                teamname = abbr[0].string
+                #print teamname
+                teams[teamname] = [0,0,0]
+                count = 0
+            else:
+                # The 2 <td> entries after the <td> with the team name are w and l
+                if ( count < 2 ):
+                    #print td.string
+                    teams[teamname][count] = int(td.string)
+                    count = count + 1
+
+
+    # read all the owners and their teams
+    ownerNames = []
+    ownerTeams = {}
+    ownerCost = {}
+    ownerW = {}
+    ownerL = {}
+
+    # For auction, every line in owner file is formatted as owner:team-cost:team-cost....
+    # If not an auction, format is owner:team:team:...
+    while ( len(lines) > 0 ):
+        # pop next line from file
+        ownerLine = lines.pop(0)
+        # split by :
+        ownerFields = ownerLine.split(":")
+        # owner name is first field
+        ownerName = ownerFields.pop(0)
+
+        # Skip any empty lines
+        if ( ownerName == '' ):
+            continue
+
+        ownerNames.append(ownerName)
+
+        # Create dicts for this owner
+        # List of teams owned
+        ownerTeams[ownerName] = list()
+        # Total owner cost
+        ownerCost[ownerName] = 0
+    
+        # Total owner W/L
+        ownerW[ownerName] = 0
+        ownerL[ownerName] = 0
+
+        # select all the teams for this owner
+        while ( len( ownerFields ) > 0 ):
+            if ( auction ):
+                # split out the cost and the team name
+                teamCost = ownerFields.pop(0).split("-")
+                team = teamCost[0]
+                cost = teamCost[1]
+            else:
+                team = ownerFields.pop(0)
+                cost = 0
+            # print (team, cost)
+
+            if ( team in teams ):
+                # Add team to owner list
+                ownerTeams[ownerName].append(team)
+
+                # Add cost to owner cost
+                ownerCost[ownerName] += int(cost)
+
+                # Add cost to teams dictionary
+                teams[team].append(int(cost))
+
+                # Add team record to owner record
+                ownerW[ownerName] += teams[team][0]
+                ownerL[ownerName] += teams[team][1]
+
+
+    #for owner in ownerTeams.keys():
+        #print owner, ownerCost[owner], ownerW[owner], ownerL[owner], ownerT[owner]
+        #for teamname in ownerTeams[owner]:
+            #print teamname, teams[teamname][3], teams[teamname][0], teams[teamname][1], teams[team
+
+
+    # Create HTML object
+    h = HTML()
+
+    # Add HTML header info
+    #output = 'Content-type: text/html\n\n'
+    outstr += '<HTML>\n<HEAD>\n<TITLE>' + year + ' NBA Standings</TITLE>\n<link rel="stylesheet"'
+    outstr += ' type="text/css"'
+    outstr += ' href="' + url_for('static', filename = 'standings.css') + '"'
+    #outstr += ' href="static/standings.css"'
+    outstr += '/>\n</HEAD>\n<BODY>\n'
+
+
+    # Create main HTML table
+
+    t = h.table( caption = str(year) + ' NBA pool standings')
+
+    # Add table header
+    t.th('Owner/Team')
+    if ( auction ):
+        t.th('Cost')
+    t.th('W')
+    t.th('L')
+
+
+    # Iterate through the owners
+    for owner in ownerNames:
+
+        # Create row for owner name and summary
+        orow = t.tr()
+        orow.th(owner, align='left')
+        if ( auction ):
+            orow.th(str(ownerCost[owner]), align = 'right')
+        orow.th(str(ownerW[owner]), align = 'right')
+        orow.th(str(ownerL[owner]), align = 'right')
+        orow.th("$%5.2f" % (betPerGame * (ownerW[owner] - ownerL[owner])), align = 'right')
+
+        # Create row for each team picked by this owner
+        for teamname in ownerTeams[owner]:
+            trow = t.tr()
+            trow.td(nbaNames[teamname], klass = 'indented')
+            if ( auction ):
+                trow.td(str(teams[teamname][3]), align = 'right')
+            trow.td(str(teams[teamname][0]), align = 'right')
+            trow.td(str(teams[teamname][1]), align = 'right')
 
     # Add html table to the output string
     outstr += str(t)
