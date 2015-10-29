@@ -26,10 +26,10 @@ nflNames = {
 }
 
 nbaNames = {
-'MIA':'Miami Heat','MEM':'Memphis Grizzlies','BKN':'Brooklyn Nets','POR':'Portland Trailblazers','GST':'Golden State Warriors','ORL':'Orlando Magic',
+'MIA':'Miami Heat','MEM':'Memphis Grizzlies','BKN':'Brooklyn Nets','POR':'Portland Trailblazers','GS':'Golden State Warriors','ORL':'Orlando Magic',
 'OKC':'Oklahoma City Thunder','BOS':'Boston Celtics','PHI':'Philadelphia 76ers','MIL':'Milwaukee Bucks','PHX':'Phoenix Suns','CHA':'Charlotte Hornets',
-'DEN':'Denver Nuggets','ATL':'Atlanta Hawks','MIN':'Minnesota Timberwolves','DAL':'Dallas Mavericks','TOR':'Toronto Raptors','WAS':'Washington Wizards',
-'SA':'San Antonio Spurs','IND':'Indiana Pacers','UT':'Utah Jazz','HOU':'Houston Rockets','CLE':'Cleveland Cavaliers','SAC':'Sacramento Kings',
+'DEN':'Denver Nuggets','ATL':'Atlanta Hawks','MIN':'Minnesota Timberwolves','DAL':'Dallas Mavericks','TOR':'Toronto Raptors','WSH':'Washington Wizards',
+'SA':'San Antonio Spurs','IND':'Indiana Pacers','UTAH':'Utah Jazz','HOU':'Houston Rockets','CLE':'Cleveland Cavaliers','SAC':'Sacramento Kings',
 'LAL':'Los Angeles Lakers','LAC':'Los Angeles Clippers','NY':'New York Knicks','CHI':'Chicago Bulls','NO':'New Orleans Hornets','DET':'Detroit Pistons'
 }
 
