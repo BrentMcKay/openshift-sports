@@ -567,6 +567,7 @@ def poolnba():
                 abbr = spans[len(spans)-2].findAll('abbr')
                 teamname = abbr[0].string
                 #print teamname
+                # W L HG 
                 teams[teamname] = [0,0,0]
                 count = 0
             else:
@@ -574,7 +575,14 @@ def poolnba():
                 if ( count < 2 ):
                     #print td.string
                     teams[teamname][count] = int(td.string)
-                    count = count + 1
+                # 5th td is home w-l record
+                elif ( count == 4 ):
+                    #print td.string
+                    hg = td.string.split("-")
+                    teams[teamname][2] = int(hg[0]) + int(hg[1])
+                    #print teams[teamname][2]
+
+                count = count + 1
 
 
     # read all the owners and their teams
@@ -583,6 +591,7 @@ def poolnba():
     ownerCost = {}
     ownerW = {}
     ownerL = {}
+    ownerHomeGames = {}
 
     # For auction, every line in owner file is formatted as owner:team-cost:team-cost....
     # If not an auction, format is owner:team:team:...
@@ -606,9 +615,10 @@ def poolnba():
         # Total owner cost
         ownerCost[ownerName] = 0
     
-        # Total owner W/L
+        # Total owner W/L, HG, RS, RA
         ownerW[ownerName] = 0
         ownerL[ownerName] = 0
+        ownerHomeGames[ownerName] = 0
 
         # select all the teams for this owner
         while ( len( ownerFields ) > 0 ):
@@ -635,6 +645,7 @@ def poolnba():
                 # Add team record to owner record
                 ownerW[ownerName] += teams[team][0]
                 ownerL[ownerName] += teams[team][1]
+                ownerHomeGames[ownerName] += teams[team][2]
 
 
     #for owner in ownerTeams.keys():
@@ -665,11 +676,13 @@ def poolnba():
         t.th('Cost')
     t.th('W')
     t.th('L')
+    t.th('EHGR')
 
 
     # Iterate through the owners
     for owner in ownerNames:
 
+        ehgr = ownerW[owner] + ownerL[owner] - ownerHomeGames[owner]*2
         # Create row for owner name and summary
         orow = t.tr()
         orow.th(owner, align='left')
@@ -677,6 +690,7 @@ def poolnba():
             orow.th(str(ownerCost[owner]), align = 'right')
         orow.th(str(ownerW[owner]), align = 'right')
         orow.th(str(ownerL[owner]), align = 'right')
+        orow.th(str(ehgr), align = 'right')
         orow.th("$%5.2f" % (betPerGame * (ownerW[owner] - ownerL[owner])), align = 'right')
 
         # Create row for each team picked by this owner
@@ -687,6 +701,8 @@ def poolnba():
                 trow.td(str(teams[teamname][3]), align = 'right')
             trow.td(str(teams[teamname][0]), align = 'right')
             trow.td(str(teams[teamname][1]), align = 'right')
+            ehgr = teams[teamname][0] + teams[teamname][1] - teams[teamname][2]*2
+            trow.td(str(ehgr), align = 'right')
 
     # Add html table to the output string
     outstr += str(t)
