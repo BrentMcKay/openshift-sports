@@ -501,7 +501,7 @@ def poolmlb():
             trow = t.tr()
             trow.td(mlbNames[teamname], klass = 'indented')
             if ( auction ):
-                trow.td(str(teams[teamname][3]), align = 'right')
+                trow.td(str(teams[teamname][5]), align = 'right')
             trow.td(str(w), align = 'right')
             trow.td(str(l), align = 'right')
             trow.td(str(ew), align = 'right')
