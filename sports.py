@@ -297,7 +297,7 @@ def poolmlb():
     outstr = ""
 
     # parse args for year
-    year = request.args.get('year','2015', type=str)
+    year = request.args.get('year','2016', type=str)
 
     # Open file containing owners and teams
     filename = "mlb.teams."+year
