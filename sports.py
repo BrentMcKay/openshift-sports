@@ -358,7 +358,7 @@ def poolmlb():
                 elif ( count == 6 ):
                     #print td.string
                     teams[teamname][3] = int(td.string)
-                # 8th td is RS
+                # 8th td is RA
                 elif ( count == 7 ):
                     #print td.string
                     teams[teamname][4] = int(td.string)
@@ -472,8 +472,9 @@ def poolmlb():
             epct = (rs**1.81)/(rs**1.81 + ra**1.81)
         else:
             epct = 0.0
-        ew = int(epct * (w + l))
+        ew = int(round(epct * (w + l)))
         el = w + l - ew
+        print rs, ra, epct, ew, el
 
         # Create row for owner name and summary
         orow = t.tr()
@@ -495,10 +496,10 @@ def poolmlb():
             rs = teams[teamname][3]
             ra = teams[teamname][4]
             if ( rs + ra > 0 ):
-                epct = (rs**2.0)/(rs**2.0 + ra**2.0)
+                epct = (rs**1.81)/(rs**1.81 + ra**1.81)
             else:
                 epct = 0.0
-            ew = int(epct * (w + l))
+            ew = int(round(epct * (w + l)))
             el = w + l - ew
 
             trow = t.tr()
