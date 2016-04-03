@@ -349,7 +349,10 @@ def poolmlb():
                 elif ( count == 4 ):
                     #print td.string
                     hg = td.string.split("-")
-                    teams[teamname][2] = int(hg[0]) + int(hg[1])
+                    try:
+                        teams[teamname][2] = int(hg[0]) + int(hg[1])
+                    except ValueError:
+                        teams[teamname][2] = 0
                     #print teams[teamname][2]
                 # 7th td is RS
                 elif ( count == 6 ):
