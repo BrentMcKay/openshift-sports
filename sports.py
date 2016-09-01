@@ -22,7 +22,8 @@ nflNames = {
 'SEA':'Seattle Seahawks','DAL':'Dallas Cowboys','MIA':'Miami Dolphins','MIN':'Minnesota Vikings','SD':'San Diego Chargers','NYG':'New York Giants','CHI':'Chicago Bears','JAX':'Jacksonville Jaguars',
 'GB':'Green Bay Packers','PIT':'Pittsburgh Steelers','ARI':'Arizona Cardinals','CAR':'Carolina Panthers','HOU':'Houston Texans','SF':'San Francisco 49ers','WSH':'Washington Redskins','TEN':'Tennessee Titans',
 'IND':'Indianapolis Colts','PHI':'Philadelphia Eagles','BAL':'Baltimore Ravens','KC':'Kansas City Chiefs','CIN':'Cincinnati Bengals','ATL':'Atlanta Falcons','NYJ':'New York Jets','TB':'Tampa Bay Buccaneers',
-'DEN':'Denver Broncos','NE':'New England Patriots','NO':'New Orleans Saints','BUF':'Buffalo Bills','STL':'St. Louis Rams','DET':'Detroit Lions','CLE':'Cleveland Browns','OAK':'Oakland Raiders'
+'DEN':'Denver Broncos','NE':'New England Patriots','NO':'New Orleans Saints','BUF':'Buffalo Bills','STL':'St. Louis Rams','DET':'Detroit Lions','CLE':'Cleveland Browns','OAK':'Oakland Raiders',
+'LA':'Los Angeles Rams'
 }
 
 nbaNames = {
@@ -47,7 +48,7 @@ def scores():
     outstr = ''
 
     # parse args for week and year
-    year = request.args.get('year','2015', type=str)
+    year = request.args.get('year','2016', type=str)
     week = request.args.get('week','1', type=str)
 
     #print (year, week)
