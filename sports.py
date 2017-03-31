@@ -567,8 +567,8 @@ def poolnba():
             # get all the <span> entries in this td
             spans = td.findAll('span')
 
-            # If there are 4 or 5 spans, this is a team name.  If 5, there is a playoff key before the name
-            if ( len(spans) == 4 or len(spans) == 3 ):
+            # If there are 3 or 4 spans, this is a team name.  If 4, there is a playoff key before the name
+            if ( len(spans) == 3 or len(spans) == 4 or len(spans) == 5):
                 abbr = spans[len(spans)-2].findAll('abbr')
                 teamname = abbr[0].string
                 #print teamname
