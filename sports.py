@@ -46,6 +46,7 @@ def main():
 @app.route("/scores")
 def scores():
     outstr = ''
+    outstr = 'test'
 
     # parse args for week and year
     year = request.args.get('year','2016', type=str)
@@ -134,7 +135,7 @@ def poolnfl():
     url='http://espn.go.com/nfl/standings/_/season/' + year 
     #print (url) 
     standingstext=urllib.urlopen(url)
-    standings =  BeautifulSoup(standingstext)
+    standings = BeautifulSoup(standingstext)
 
     # get all the <tr> entries
     for row in standings.findAll('tr'):
