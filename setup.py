@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='YourAppName',
-      version='1.0',
+      version='1.1',
       description='OpenShift App',
       author='Your Name',
       author_email='example@example.com',
