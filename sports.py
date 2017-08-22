@@ -60,7 +60,10 @@ def scores():
     scoretext=scoresrc.read()
         
     # truncate score text after string "teamsOnBye"
-    scoretext = scoretext.split('teamsOnBye', 1)[0]
+    #scoretext = scoretext.split('teamsOnBye', 1)[0]
+
+    #byere = re.compile('teamsOnBye.*?"number":')
+    scoretext = re.sub( 'teamsOnBye.*?"number":','',scoretext)
 
     # Get team names
     teamre = re.compile('"shortDisplayName":"(\w+)"')
