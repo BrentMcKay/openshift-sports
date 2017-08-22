@@ -134,7 +134,7 @@ def poolnfl():
     url='http://espn.go.com/nfl/standings/_/season/' + year 
     #print (url) 
     standingstext=urllib.urlopen(url)
-    standings = BeautifulSoup(standingstext)
+    standings =  BeautifulSoup(standingstext)
 
     # get all the <tr> entries
     for row in standings.findAll('tr'):
