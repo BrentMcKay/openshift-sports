@@ -46,7 +46,6 @@ def main():
 @app.route("/scores")
 def scores():
     outstr = ''
-    outstr = 'test'
 
     # parse args for week and year
     year = request.args.get('year','2016', type=str)
