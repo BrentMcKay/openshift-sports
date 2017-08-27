@@ -23,7 +23,7 @@ nflNames = {
 'GB':'Green Bay Packers','PIT':'Pittsburgh Steelers','ARI':'Arizona Cardinals','CAR':'Carolina Panthers','HOU':'Houston Texans','SF':'San Francisco 49ers','WSH':'Washington Redskins','TEN':'Tennessee Titans',
 'IND':'Indianapolis Colts','PHI':'Philadelphia Eagles','BAL':'Baltimore Ravens','KC':'Kansas City Chiefs','CIN':'Cincinnati Bengals','ATL':'Atlanta Falcons','NYJ':'New York Jets','TB':'Tampa Bay Buccaneers',
 'DEN':'Denver Broncos','NE':'New England Patriots','NO':'New Orleans Saints','BUF':'Buffalo Bills','STL':'St. Louis Rams','DET':'Detroit Lions','CLE':'Cleveland Browns','OAK':'Oakland Raiders',
-'LA':'Los Angeles Rams'
+'LAR':'Los Angeles Rams','LAC':'Los Angeles Chargers'
 }
 
 nbaNames = {
